@@ -1,8 +1,691 @@
-<html>
-<title>Обучающий сайт<title>
+<!DOCTYPE html>
+<html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обучающий сайт по HTML</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 2.5rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            background-color: #2c3e50;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            justify-content: center;
+        }
+        
+        nav li {
+            margin: 0;
+        }
+        
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        nav a:hover {
+            background-color: #34495e;
+            transform: translateY(-2px);
+        }
+        
+        .active {
+            background-color: #3498db;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .main-content {
+            display: flex;
+            margin: 30px 0;
+            gap: 30px;
+        }
+        
+        .sidebar {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            align-self: flex-start;
+            position: sticky;
+            top: 80px;
+        }
+        
+        .content {
+            flex: 3;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        h1, h2, h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 2px;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            position: relative;
+        }
+        
+        h2::before {
+            content: "";
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #6a11cb;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-top: 25px;
+        }
+        
+        p {
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+        
+        .code-example {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .code-example::before {
+            content: "HTML";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #6a11cb;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            border-radius: 0 8px 0 8px;
+        }
+        
+        .example-result {
+            background-color: #f9f9f9;
+            border: 1px solid #eaeaea;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, #3498db, #2575fc);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
+        }
+        
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        form {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .html-tag {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+        
+        .sidebar-content {
+            text-align: center;
+        }
+        
+        .html-logo {
+            font-size: 4rem;
+            color: #e44d26;
+            margin-bottom: 20px;
+        }
+        
+        .tag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Обучающий сайт</h1>
+    <header>
+        <div class="container">
+            <h1>Обучающий сайт по HTML</h1>
+            <p>Изучайте основы HTML с нуля с помощью интерактивных примеров</p>
+        </div>
+    </header>
+    
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#intro" class="active">Введение</a></li>
+                <li><a href="#basics">Основы</a></li>
+                <li><a href="#elements">Элементы</a></li>
+                <li><a href="#forms">Формы</a></li>
+                <li><a href="#tables">Таблицы</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <div class="sidebar-content">
+                    <div class="html-logo">
+                        &lt;/&gt;
+                    </div>
+                    <h3>Основы HTML</h3>
+                    <p>Изучите фундаментальные концепции языка разметки HTML</p>
+                    
+                    <div class="tag-cloud">
+                        <span class="html-tag">&lt;html&gt;</span>
+                        <span class="html-tag">&lt;head&gt;</span>
+                        <span class="html-tag">&lt;body&gt;</span>
+                        <span class="html-tag">&lt;div&gt;</span>
+                        <span class="html-tag">&lt;p&gt;</span>
+                        <span class="html-tag">&lt;a&gt;</span>
+                        <span class="html-tag">&lt;img&gt;</span>
+                        <span class="html-tag">&lt;form&gt;</span>
+                        <span class="html-tag">&lt;table&gt;</span>
+                    </div>
+                </div>
+            </aside>
+            
+            <main class="content">
+                <section id="intro">
+                    <h2>Введение в HTML</h2>
+                    <p>HTML (HyperText Markup Language) - это фундаментальная технология, используемая для создания структуры веб-страницы и её контента. HTML не является языком программирования; это язык разметки, который определяет структуру вашего контента.</p>
+                    
+                    <div class="feature-card">
+                        <h3>Почему важно изучать HTML?</h3>
+                        <p>HTML является основой веб-разработки. Даже если вы планируете использовать современные фреймворки и библиотеки, понимание HTML необходимо для создания качественных, доступных и хорошо структурированных веб-страниц.</p>
+                    </div>
+                    
+                    <h3>Базовая структура HTML-документа</h3>
+                    <div class="code-example">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="ru"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Название страницы&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Мой первый заголовок&lt;/h1&gt;
+    &lt;p&gt;Мой первый параграф.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </div>
+                </section>
+                
+                <section id="basics">
+                    <h2>Основы HTML</h2>
+                    <p>HTML состоит из серии элементов, которые вы используете, чтобы охватывать, оборачивать или размечать различные части контента, чтобы он появлялся определенным образом или действовал определенным образом.</p>
+                    
+                    <h3>Структура HTML-элемента</h3>
+                    <p>Основная структура HTML-элемента выглядит следующим образом:</p>
+                    
+                    <div class="code-example">
+&lt;тег атрибут="значение"&gt;Содержимое&lt;/тег&gt;
+                    </div>
+                    
+                    <div class="example-result">
+                        <p>Например: <span class="html-tag">&lt;a href="https://example.com"&gt;Пример ссылки&lt;/a&gt;</span></p>
+                        <p>Результат: <a href="#" style="color: #3498db;">Пример ссылки</a></p>
+                    </div>
+                    
+                    <h3>Блочные и строчные элементы</h3>
+                    <p>HTML-элементы можно разделить на две основные категории:</p>
+                    
+                    <div class="feature-card">
+                        <h3>Блочные элементы</h3>
+                        <p>Занимают всю доступную ширину, всегда начинаются с новой строки. Примеры: <span class="html-tag">&lt;div&gt;</span>, <span class="html-tag">&lt;h1&gt;-&lt;h6&gt;</span>, <span class="html-tag">&lt;p&gt;</span>, <span class="html-tag">&lt;ul&gt;</span>, <span class="html-tag">&lt;li&gt;</span>.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>Строчные элементы</h3>
+                        <p>Занимают только необходимую ширину, не начинаются с новой строки. Примеры: <span class="html-tag">&lt;span&gt;</span>, <span class="html-tag">&lt;a&gt;</span>, <span class="html-tag">&lt;img&gt;</span>, <span class="html-tag">&lt;strong&gt;</span>.</p>
+                    </div>
+                </section>
+                
+                <section id="elements">
+                    <h2>HTML-элементы</h2>
+                    <p>Давайте рассмотрим некоторые основные HTML-элементы с примерами:</p>
+                    
+                    <h3>Заголовки</h3>
+                    <p>HTML предоставляет шесть уровней заголовков, от <span class="html-tag">&lt;h1&gt;</span> (самый важный) до <span class="html-tag">&lt;h6&gt;</span> (наименее важный).</p>
+                    
+                    <div class="code-example">
+&lt;h1&gt;Заголовок 1 уровня&lt;/h1&gt;
+&lt;h2&gt;Заголовок 2 уровня&lt;/h2&gt;
+&lt;h3&gt;Заголовок 3 уровня&lt;/h3&gt;
+&lt;h4&gt;Заголовок 4 уровня&lt;/h4&gt;
+&lt;h5&gt;Заголовок 5 уровня&lt;/h5&gt;
+&lt;h6&gt;Заголовок 6 уровня&lt;/h6&gt;
+                    </div>
+                    
+                    <div class="example-result">
+                        <h1 style="font-size: 2rem;">Заголовок 1 уровня</h1>
+                        <h2 style="font-size: 1.8rem;">Заголовок 2 уровня</h2>
+                        <h3 style="font-size: 1.5rem;">Заголовок 3 уровня</h3>
+                        <h4 style="font-size: 1.3rem;">Заголовок 4 уровня</h4>
+                        <h5 style="font-size: 1.1rem;">Заголовок 5 уровня</h5>
+                        <h6 style="font-size: 1rem;">Заголовок 6 уровня</h6>
+                    </div>
+                    
+                    <h3>Ссылки</h3>
+                    <p>Ссылки создаются с помощью тега <span class="html-tag">&lt;a&gt;</span>. Обязательный атрибут <strong>href</strong> указывает адрес назначения ссылки.</p>
+                    
+                    <div class="code-example">
+&lt;a href="https://www.example.com"&gt;Это ссылка на Example.com&lt;/a&gt;
+                    </div>
+                    
+                    <div class="example-result">
+                        <a href="#" class="btn">Пример ссылки</a>
+                    </div>
+                </section>
+                
+                <section id="forms">
+                    <h2>HTML-формы</h2>
+                    <p>Формы используются для сбора пользовательского ввода. Они содержат различные элементы ввода, такие как текстовые поля, флажки, переключатели, кнопки отправки и т.д.</p>
+                    
+                    <h3>Пример формы обратной связи</h3>
+                    <form id="feedback-form">
+                        <div class="form-group">
+                            <label for="name">Имя:</label>
+                            <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Введите ваш email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Сообщение:</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Введите ваше сообщение" required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="country">Страна:</label>
+                            <select id="country" name="country">
+                                <option value="russia">Россия</option>
+                                <option value="usa">США</option>
+                                <option value="germany">Германия</option>
+                                <option value="france">Франция</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Пол:</label>
+                            <div style="display: flex; gap: 15px; margin-top: 8px;">
+                                <div>
+                                    <input type="radio" id="male" name="gender" value="male">
+                                    <label for="male">Мужской</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="female" name="gender" value="female">
+                                    <label for="female">Женский</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="checkbox" id="subscribe" name="subscribe">
+                            <label for="subscribe">Подписаться на рассылку</label>
+                        </div>
+                        
+                        <button type="submit" class="btn">Отправить сообщение</button>
+                    </form>
+                    
+                    <div class="code-example">
+&lt;form&gt;
+  &lt;label for="name"&gt;Имя:&lt;/label&gt;
+  &lt;input type="text" id="name" name="name"&gt;
+  
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;input type="email" id="email" name="email"&gt;
+  
+  &lt;label for="message"&gt;Сообщение:&lt;/label&gt;
+  &lt;textarea id="message" name="message"&gt;&lt;/textarea&gt;
+  
+  &lt;button type="submit"&gt;Отправить&lt;/button&gt;
+&lt;/form&gt;
+                    </div>
+                </section>
+                
+                <section id="tables">
+                    <h2>HTML-таблицы</h2>
+                    <p>Таблицы используются для представления данных в строках и столбцах.</p>
+                    
+                    <h3>Пример таблицы пользователей</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Имя</th>
+                                <th>Возраст</th>
+                                <th>Город</th>
+                                <th>Профессия</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Иван</td>
+                                <td>25</td>
+                                <td>Москва</td>
+                                <td>Веб-разработчик</td>
+                            </tr>
+                            <tr>
+                                <td>Мария</td>
+                                <td>30</td>
+                                <td>Санкт-Петербург</td>
+                                <td>Дизайнер</td>
+                            </tr>
+                            <tr>
+                                <td>Алексей</td>
+                                <td>28</td>
+                                <td>Казань</td>
+                                <td>Маркетолог</td>
+                            </tr>
+                            <tr>
+                                <td>Ольга</td>
+                                <td>32</td>
+                                <td>Новосибирск</td>
+                                <td>Аналитик</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="code-example">
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Имя&lt;/th&gt;
+      &lt;th&gt;Возраст&lt;/th&gt;
+      &lt;th&gt;Город&lt;/th&gt;
+      &lt;th&gt;Профессия&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Иван&lt;/td&gt;
+      &lt;td&gt;25&lt;/td&gt;
+      &lt;td&gt;Москва&lt;/td&gt;
+      &lt;td&gt;Веб-разработчик&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Мария&lt;/td&gt;
+      &lt;td&gt;30&lt;/td&gt;
+      &lt;td&gt;Санкт-Петербург&lt;/td&gt;
+      &lt;td&gt;Дизайнер&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Обучающий сайт по HTML. Все права защищены.</p>
+            <p>Создано с помощью HTML, CSS и JavaScript</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Навигация по странице
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Удаляем класс active у всех ссылок
+                document.querySelectorAll('nav a').forEach(a => {
+                    a.classList.remove('active');
+                });
+                
+                // Добавляем класс active к текущей ссылке
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Обработка формы
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Форма отправлена! (Это демонстрация, данные никуда не отправляются)');
+            this.reset();
+        });
+        
+        // Подсветка активного раздела при прокрутке
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
 </body>
-<html>
+</html>
