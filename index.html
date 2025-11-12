@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Обучающий сайт по HTML</title>
     <style>
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --dark-bg: #121212;
+            --dark-surface: #1e1e1e;
+            --dark-surface-light: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --accent: #00d4ff;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --error: #F44336;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -13,17 +27,18 @@
         }
         
         body {
-            background-color: #f8f9fa;
-            color: #333;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
             line-height: 1.6;
+            transition: all 0.3s ease;
         }
         
         header {
-            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             padding: 2.5rem 0;
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
         }
@@ -47,11 +62,12 @@
         }
         
         nav {
-            background-color: #2c3e50;
+            background-color: var(--dark-surface);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
         
         nav ul {
@@ -66,21 +82,41 @@
         
         nav a {
             display: block;
-            color: white;
+            color: var(--text-primary);
             text-decoration: none;
             padding: 15px 25px;
             transition: all 0.3s;
             font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::before {
+            width: 100%;
         }
         
         nav a:hover {
-            background-color: #34495e;
-            transform: translateY(-2px);
+            color: var(--accent);
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         .active {
-            background-color: #3498db;
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+            color: var(--accent);
+        }
+        
+        .active::before {
+            width: 100%;
         }
         
         .main-content {
@@ -91,10 +127,10 @@
         
         .sidebar {
             flex: 1;
-            background: white;
+            background: var(--dark-surface);
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             align-self: flex-start;
             position: sticky;
             top: 80px;
@@ -102,15 +138,15 @@
         
         .content {
             flex: 3;
-            background: white;
+            background: var(--dark-surface);
             padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         h1, h2, h3 {
             margin-bottom: 20px;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
         
         h1 {
@@ -126,13 +162,13 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: 2px;
         }
         
         h2 {
             font-size: 2rem;
-            border-bottom: 3px solid #3498db;
+            border-bottom: 3px solid var(--accent);
             padding-bottom: 10px;
             position: relative;
         }
@@ -144,22 +180,23 @@
             left: 0;
             width: 50px;
             height: 3px;
-            background: #6a11cb;
+            background: var(--primary);
         }
         
         h3 {
             font-size: 1.5rem;
-            color: #3498db;
+            color: var(--accent);
             margin-top: 25px;
         }
         
         p {
             margin-bottom: 20px;
             font-size: 1.05rem;
+            color: var(--text-secondary);
         }
         
         .code-example {
-            background-color: #2d2d2d;
+            background-color: var(--dark-surface-light);
             color: #f8f8f2;
             padding: 20px;
             border-radius: 8px;
@@ -168,8 +205,9 @@
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 0.95rem;
             line-height: 1.5;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
             position: relative;
+            border-left: 4px solid var(--accent);
         }
         
         .code-example::before {
@@ -177,7 +215,7 @@
             position: absolute;
             top: 0;
             right: 0;
-            background: #6a11cb;
+            background: var(--primary);
             color: white;
             padding: 5px 10px;
             font-size: 0.8rem;
@@ -185,17 +223,17 @@
         }
         
         .example-result {
-            background-color: #f9f9f9;
-            border: 1px solid #eaeaea;
+            background-color: var(--dark-surface-light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 8px;
             margin: 20px 0;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         
         .btn {
             display: inline-block;
-            background: linear-gradient(to right, #3498db, #2575fc);
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
             padding: 12px 25px;
             border: none;
@@ -204,38 +242,57 @@
             text-decoration: none;
             transition: all 0.3s;
             font-weight: 600;
-            box-shadow: 0 4px 6px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 4px 6px rgba(106, 17, 203, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
         }
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 6px 8px rgba(106, 17, 203, 0.4);
         }
         
         footer {
-            background-color: #2c3e50;
-            color: white;
+            background-color: var(--dark-surface);
+            color: var(--text-secondary);
             text-align: center;
             padding: 30px 0;
             margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .feature-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: linear-gradient(135deg, var(--dark-surface-light) 0%, var(--dark-surface) 100%);
             border-radius: 10px;
             padding: 25px;
             margin: 25px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid #3498db;
-            transition: transform 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
         }
         
         .feature-card h3 {
-            color: #2c3e50;
+            color: var(--text-primary);
             margin-top: 0;
         }
         
@@ -244,10 +301,12 @@
             border-collapse: collapse;
             margin: 25px 0;
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
         }
         
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         th, td {
@@ -256,21 +315,26 @@
         }
         
         th {
-            background-color: #3498db;
+            background-color: var(--primary);
             color: white;
             font-weight: 600;
         }
         
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: var(--dark-surface-light);
+        }
+        
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
         
         form {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            background: linear-gradient(135deg, var(--dark-surface-light) 0%, var(--dark-surface) 100%);
             padding: 30px;
             border-radius: 10px;
             margin: 30px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .form-group {
@@ -281,27 +345,29 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text-primary);
         }
         
         input, textarea, select {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 6px;
             font-size: 1rem;
-            transition: border 0.3s;
+            transition: border 0.3s, box-shadow 0.3s;
+            background-color: var(--dark-surface);
+            color: var(--text-primary);
         }
         
         input:focus, textarea:focus, select:focus {
-            border-color: #3498db;
+            border-color: var(--accent);
             outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
         }
         
         .html-tag {
             display: inline-block;
-            background: #e74c3c;
+            background: var(--primary);
             color: white;
             padding: 3px 8px;
             border-radius: 4px;
@@ -315,8 +381,9 @@
         
         .html-logo {
             font-size: 4rem;
-            color: #e44d26;
+            color: var(--accent);
             margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
         }
         
         .tag-cloud {
@@ -325,6 +392,156 @@
             gap: 8px;
             justify-content: center;
             margin-top: 20px;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: var(--dark-surface-light);
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 10px;
+            width: 0%;
+            transition: width 1s ease-in-out;
+        }
+        
+        .topic-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .topic-list li {
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            background-color: var(--dark-surface-light);
+            border-radius: 6px;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        
+        .topic-list li::before {
+            content: "▶";
+            margin-right: 10px;
+            color: var(--accent);
+            transition: transform 0.3s;
+        }
+        
+        .topic-list li:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .topic-list li:hover::before {
+            transform: rotate(90deg);
+        }
+        
+        .tip-box {
+            background: linear-gradient(135deg, var(--warning) 0%, #FF5722 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tip-box::before {
+            content: "💡";
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+        
+        .tip-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .tip-box p {
+            color: white;
+            margin-bottom: 0;
+        }
+        
+        .quiz-container {
+            background: var(--dark-surface-light);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .quiz-question {
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .quiz-options {
+            list-style: none;
+        }
+        
+        .quiz-options li {
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: var(--dark-surface);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quiz-options li:hover {
+            background-color: rgba(0, 212, 255, 0.1);
+        }
+        
+        .quiz-options li.correct {
+            background-color: rgba(76, 175, 80, 0.2);
+            border-left: 4px solid var(--success);
+        }
+        
+        .quiz-options li.incorrect {
+            background-color: rgba(244, 67, 54, 0.2);
+            border-left: 4px solid var(--error);
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--dark-surface);
+            color: var(--text-primary);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .light-theme {
+            --dark-bg: #f5f7fa;
+            --dark-surface: #ffffff;
+            --dark-surface-light: #f0f2f5;
+            --text-primary: #2c3e50;
+            --text-secondary: #546e7a;
         }
         
         @media (max-width: 768px) {
@@ -360,8 +577,10 @@
                 <li><a href="#intro" class="active">Введение</a></li>
                 <li><a href="#basics">Основы</a></li>
                 <li><a href="#elements">Элементы</a></li>
+                <li><a href="#semantic">Семантика</a></li>
                 <li><a href="#forms">Формы</a></li>
                 <li><a href="#tables">Таблицы</a></li>
+                <li><a href="#multimedia">Мультимедиа</a></li>
             </ul>
         </div>
     </nav>
@@ -375,6 +594,22 @@
                     </div>
                     <h3>Основы HTML</h3>
                     <p>Изучите фундаментальные концепции языка разметки HTML</p>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    
+                    <h4>Темы для изучения:</h4>
+                    <ul class="topic-list">
+                        <li>Структура HTML-документа</li>
+                        <li>Блочные и строчные элементы</li>
+                        <li>Семантическая разметка</li>
+                        <li>Формы и элементы ввода</li>
+                        <li>Таблицы и списки</li>
+                        <li>Мультимедийные элементы</li>
+                        <li>Мета-теги и SEO</li>
+                        <li>Доступность (a11y)</li>
+                    </ul>
                     
                     <div class="tag-cloud">
                         <span class="html-tag">&lt;html&gt;</span>
@@ -415,6 +650,11 @@
 &lt;/body&gt;
 &lt;/html&gt;
                     </div>
+                    
+                    <div class="tip-box">
+                        <h3>Совет для начинающих</h3>
+                        <p>Всегда используйте семантические теги там, где это возможно. Они улучшают доступность вашего сайта и помогают поисковым системам лучше понимать структуру вашего контента.</p>
+                    </div>
                 </section>
                 
                 <section id="basics">
@@ -430,7 +670,7 @@
                     
                     <div class="example-result">
                         <p>Например: <span class="html-tag">&lt;a href="https://example.com"&gt;Пример ссылки&lt;/a&gt;</span></p>
-                        <p>Результат: <a href="#" style="color: #3498db;">Пример ссылки</a></p>
+                        <p>Результат: <a href="#" style="color: var(--accent);">Пример ссылки</a></p>
                     </div>
                     
                     <h3>Блочные и строчные элементы</h3>
@@ -444,6 +684,16 @@
                     <div class="feature-card">
                         <h3>Строчные элементы</h3>
                         <p>Занимают только необходимую ширину, не начинаются с новой строки. Примеры: <span class="html-tag">&lt;span&gt;</span>, <span class="html-tag">&lt;a&gt;</span>, <span class="html-tag">&lt;img&gt;</span>, <span class="html-tag">&lt;strong&gt;</span>.</p>
+                    </div>
+                    
+                    <div class="quiz-container">
+                        <div class="quiz-question">Какой из этих элементов является блочным?</div>
+                        <ul class="quiz-options">
+                            <li data-correct="false">&lt;span&gt;</li>
+                            <li data-correct="true">&lt;div&gt;</li>
+                            <li data-correct="false">&lt;a&gt;</li>
+                            <li data-correct="false">&lt;img&gt;</li>
+                        </ul>
                     </div>
                 </section>
                 
@@ -481,6 +731,96 @@
                     
                     <div class="example-result">
                         <a href="#" class="btn">Пример ссылки</a>
+                    </div>
+                    
+                    <h3>Списки</h3>
+                    <p>HTML поддерживает упорядоченные (нумерованные) и неупорядоченные (маркированные) списки.</p>
+                    
+                    <div class="code-example">
+&lt;!-- Неупорядоченный список --&gt;
+&lt;ul&gt;
+    &lt;li&gt;Первый пункт&lt;/li&gt;
+    &lt;li&gt;Второй пункт&lt;/li&gt;
+    &lt;li&gt;Третий пункт&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Упорядоченный список --&gt;
+&lt;ol&gt;
+    &lt;li&gt;Первый пункт&lt;/li&gt;
+    &lt;li&gt;Второй пункт&lt;/li&gt;
+    &lt;li&gt;Третий пункт&lt;/li&gt;
+&lt;/ol&gt;
+                    </div>
+                </section>
+                
+                <section id="semantic">
+                    <h2>Семантическая разметка</h2>
+                    <p>Семантические HTML-элементы четко описывают свое значение как для браузера, так и для разработчика. Они улучшают доступность, SEO и читаемость кода.</p>
+                    
+                    <h3>Основные семантические элементы</h3>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;header&gt;</h3>
+                        <p>Определяет заголовок для документа или раздела.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;nav&gt;</h3>
+                        <p>Определяет набор навигационных ссылок.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;main&gt;</h3>
+                        <p>Определяет основное содержимое документа.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;section&gt;</h3>
+                        <p>Определяет раздел в документе.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;article&gt;</h3>
+                        <p>Определяет независимый, самодостаточый контент.</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;aside&gt;</h3>
+                        <p>Определяет контент в стороне от контента (как боковая панель).</p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h3>&lt;footer&gt;</h3>
+                        <p>Определяет нижний колонтитул для документа или раздела.</p>
+                    </div>
+                    
+                    <div class="code-example">
+&lt;header&gt;
+    &lt;h1&gt;Заголовок сайта&lt;/h1&gt;
+    &lt;nav&gt;
+        &lt;ul&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Главная&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;О нас&lt;/a&gt;&lt;/li&gt;
+            &lt;li&gt;&lt;a href="#"&gt;Контакты&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h2&gt;Заголовок статьи&lt;/h2&gt;
+        &lt;p&gt;Содержимое статьи...&lt;/p&gt;
+    &lt;/article&gt;
+    
+    &lt;aside&gt;
+        &lt;h3&gt;Боковая панель&lt;/h3&gt;
+        &lt;p&gt;Дополнительная информация...&lt;/p&gt;
+    &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;© 2023 Мой сайт&lt;/p&gt;
+&lt;/footer&gt;
                     </div>
                 </section>
                 
@@ -622,6 +962,45 @@
 &lt;/table&gt;
                     </div>
                 </section>
+                
+                <section id="multimedia">
+                    <h2>Мультимедийные элементы</h2>
+                    <p>HTML5 предоставляет встроенную поддержку мультимедийных элементов, таких как аудио и видео.</p>
+                    
+                    <h3>Видео элемент</h3>
+                    <p>Элемент <span class="html-tag">&lt;video&gt;</span> позволяет встраивать видео контент на веб-страницу.</p>
+                    
+                    <div class="code-example">
+&lt;video width="640" height="360" controls&gt;
+    &lt;source src="movie.mp4" type="video/mp4"&gt;
+    &lt;source src="movie.ogg" type="video/ogg"&gt;
+    Ваш браузер не поддерживает видео тег.
+&lt;/video&gt;
+                    </div>
+                    
+                    <h3>Аудио элемент</h3>
+                    <p>Элемент <span class="html-tag">&lt;audio&gt;</span> позволяет встраивать аудио контент на веб-страницу.</p>
+                    
+                    <div class="code-example">
+&lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+    &lt;source src="audio.ogg" type="audio/ogg"&gt;
+    Ваш браузер не поддерживает аудио тег.
+&lt;/audio&gt;
+                    </div>
+                    
+                    <h3>Изображения</h3>
+                    <p>Элемент <span class="html-tag">&lt;img&gt;</span> используется для встраивания изображений в HTML-документ.</p>
+                    
+                    <div class="code-example">
+&lt;img src="image.jpg" alt="Описание изображения" width="500" height="300"&gt;
+                    </div>
+                    
+                    <div class="tip-box">
+                        <h3>Важно!</h3>
+                        <p>Всегда используйте атрибут <strong>alt</strong> для изображений. Это улучшает доступность для пользователей с ограниченными возможностями и помогает SEO.</p>
+                    </div>
+                </section>
             </main>
         </div>
     </div>
@@ -632,6 +1011,8 @@
             <p>Создано с помощью HTML, CSS и JavaScript</p>
         </div>
     </footer>
+    
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
     
     <script>
         // Навигация по странице
@@ -685,7 +1066,54 @@
                     link.classList.add('active');
                 }
             });
+            
+            // Обновление прогресс-бара
+            updateProgressBar();
         });
+        
+        // Обновление прогресс-бара
+        function updateProgressBar() {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset;
+            const scrollPercent = (scrollTop) / (docHeight - winHeight);
+            const progressBar = document.getElementById('progress-bar');
+            
+            progressBar.style.width = (scrollPercent * 100) + '%';
+        }
+        
+        // Обработка квиза
+        document.querySelectorAll('.quiz-options li').forEach(option => {
+            option.addEventListener('click', function() {
+                const isCorrect = this.getAttribute('data-correct') === 'true';
+                const parent = this.parentElement;
+                
+                // Сбрасываем все варианты
+                parent.querySelectorAll('li').forEach(li => {
+                    li.classList.remove('correct', 'incorrect');
+                });
+                
+                // Подсвечиваем выбранный вариант
+                if (isCorrect) {
+                    this.classList.add('correct');
+                } else {
+                    this.classList.add('incorrect');
+                    
+                    // Подсвечиваем правильный ответ
+                    parent.querySelector('li[data-correct="true"]').classList.add('correct');
+                }
+            });
+        });
+        
+        // Переключение темы
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            themeToggle.textContent = document.body.classList.contains('light-theme') ? '🌞' : '🌙';
+        });
+        
+        // Инициализация прогресс-бара
+        updateProgressBar();
     </script>
 </body>
 </html>
